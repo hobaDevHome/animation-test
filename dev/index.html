@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+    <title>Spin Wheel</title>
+    <script type="module">
+      // Create the application helper and add its render target to the page
+      const app = new PIXI.Application();
+
+      await app.init({
+        width: 1440,
+        height: 545,
+        backgroundAlpha: 0,
+      });
+      document.getElementById("myCanvas1").appendChild(app.view);
+
+      await PIXI.Assets.load([
+        "./assets/showdown-imgs/showdown-off.png",
+        "./assets/showdown-imgs/vegas@2x.png",
+        "./assets/showdown-imgs/slots@2x.png",
+        "./assets/showdown-imgs/s@2x.png",
+        "./assets/showdown-imgs/h@2x.png",
+        "./assets/showdown-imgs/o-1@2x.png",
+        "./assets/showdown-imgs/w-1@2x.png",
+        "./assets/showdown-imgs/d@2x.png",
+        "./assets/showdown-imgs/o-2@2x.png",
+        "./assets/showdown-imgs/w-2@2x.png",
+        "./assets/showdown-imgs/n@2x.png",
+        "./assets/showdown-imgs/must_drop.png",
+        "./assets/showdown-imgs/bolt@2x.png",
+      ]);
+
+      const lettersNames = [
+        "s@2x.png",
+        "h@2x.png",
+        "o-1@2x.png",
+        "w-1@2x.png",
+        "d@2x.png",
+        "o-2@2x.png",
+        "w-2@2x.png",
+        "n@2x.png",
+      ];
+
+      //   let sprite1 = PIXI.Sprite.from("./assets/showdown-imgs/showdown-off.png");
+      //   sprite1.anchor.set(0.5);
+
+      //   sprite1.x = app.screen.width / 2;
+      //   sprite1.y = app.screen.height / 2;
+      //   app.stage.addChild(sprite1);
+
+      // vegas
+
+      let vegas = PIXI.Sprite.from("./assets/showdown-imgs/vegas@2x.png");
+      vegas.x = 370;
+      vegas.y = 95;
+      app.stage.addChild(vegas);
+
+      // slots
+
+      let slots = PIXI.Sprite.from("./assets/showdown-imgs/slots@2x.png");
+      slots.x = 750;
+      slots.y = 95;
+      app.stage.addChild(slots);
+
+      // vagas and solts blink
+      setTimeout(() => {
+        vegas.alpha = 0;
+        slots.alpha = 0;
+      }, "200");
+
+      setTimeout(() => {
+        vegas.alpha = 1;
+        slots.alpha = 1;
+        letterSequence();
+      }, "300");
+      setTimeout(() => {
+        slots.alpha = 0;
+        vegas.alpha = 0;
+      }, "400");
+
+      setTimeout(() => {
+        slots.alpha = 1;
+        vegas.alpha = 1;
+        bolt();
+      }, "500");
+
+      // letters
+      const SPACING = 10;
+      const STARTINGX = 265;
+      const STARTINGY = 110;
+      const positions = [
+        { x: 265, y: 110 },
+        { x: 360, y: 110 },
+        { x: 510, y: 110 },
+        { x: 555, y: 110 },
+        { x: 670, y: 110 },
+        { x: 750, y: 110 },
+        { x: 835, y: 110 },
+        { x: 930, y: 110 },
+      ];
+
+      function showLetter(assetName, x, y) {
+        let letter = PIXI.Sprite.from(`./assets/showdown-imgs/${assetName}`);
+        letter.x = x;
+        letter.y = y;
+
+        app.stage.addChild(letter);
+        letter.alpha = 0;
+        const ticker = PIXI.Ticker.shared;
+
+        const onTick = () => {
+          letter.alpha += 0.05;
+
+          if (letter.alpha > 1) {
+            ticker.remove(onTick);
+          }
+        };
+        ticker.add(onTick);
+        if (assetName === "n@2x.png") mustDropShow();
+      }
+
+      function letterSequence() {
+        lettersNames.forEach((letter, index) => {
+          setTimeout(() => {
+            showLetter(letter, positions[index].x, positions[index].y);
+          }, index * 200);
+        });
+      }
+
+      function mustDropShow() {
+        let must = PIXI.Sprite.from("./assets/showdown-imgs/must_drop.png");
+        must.anchor.set(0.5);
+        must.x = app.screen.width / 2;
+        must.y = 470;
+        app.stage.addChild(must);
+
+        const ticker2 = PIXI.Ticker.shared;
+        let c = 0;
+        const onTick2 = () => {
+          c += 0.1;
+
+          if (c > 1) {
+            must.alpha = 0;
+            c = 0;
+            ticker2.remove(onTick2);
+            const ticker3 = PIXI.Ticker.shared;
+            const onTick3 = () => {
+              c += 0.1;
+
+              if (c > 1) {
+                must.alpha = 1;
+                c = 0;
+                ticker3.remove(onTick3);
+              }
+            };
+            ticker3.add(onTick3);
+          }
+        };
+        ticker2.add(onTick2);
+      }
+
+      function bolt() {
+        let bolt = PIXI.Sprite.from("./assets/showdown-imgs/bolt@2x.png");
+
+        bolt.x = 660;
+        bolt.y = 55;
+        app.stage.addChild(bolt);
+        let flag = 1;
+        app.ticker.add((time) => {
+          // Call tick handling for each spinner.
+          if (flag == 1) {
+            bolt.alpha -= 0.1;
+
+            if (bolt.alpha <= 0) {
+              bolt.alpha = 0;
+              flag = 0;
+            }
+          } else if (flag == 0) {
+            bolt.alpha += 0.1;
+            if (bolt.alpha >= 1) {
+              bolt.alpha = 1;
+              flag = 1;
+            }
+          }
+        });
+      }
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header" id="myCanvas">
+        <div id="myCanvas1"></div>
+      </div>
+      <div>
+        <img src="./assets/wheel.png" alt="Wheel" class="wheel" />
+        <br /><br />
+        <button class="spin-button" onclick="spinWheel()">Spin</button>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

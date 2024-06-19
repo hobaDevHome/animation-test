@@ -1,0 +1,49 @@
+body {
+  height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.wheel {
+  width: 300px; /* Adjust size as needed */
+}
+.spin-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.header {
+  min-width: 1060px;
+  height: 570px;
+  background-image: url("./assets/showdown-imgs/header.png");
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#myCanvas1 {
+  width: 802px;
+  height: 336px;
+  background-image: url("./assets/showdown-imgs/showdown-off.png");
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  background-repeat: no-repeat;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
