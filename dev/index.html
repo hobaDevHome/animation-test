@@ -14,7 +14,7 @@
         height: 545,
         backgroundAlpha: 0,
       });
-      document.getElementById("myCanvas1").appendChild(app.view);
+      document.getElementById("myCanvas").appendChild(app.view);
 
       await PIXI.Assets.load([
         "./assets/showdown-imgs/showdown-off.png",
@@ -42,13 +42,6 @@
         "w-2@2x.png",
         "n@2x.png",
       ];
-
-      //   let sprite1 = PIXI.Sprite.from("./assets/showdown-imgs/showdown-off.png");
-      //   sprite1.anchor.set(0.5);
-
-      //   sprite1.x = app.screen.width / 2;
-      //   sprite1.y = app.screen.height / 2;
-      //   app.stage.addChild(sprite1);
 
       // vegas
 
@@ -191,8 +184,20 @@
   </head>
   <body>
     <div class="container">
-      <div class="header" id="myCanvas">
-        <div id="myCanvas1"></div>
+      <div class="header">
+        <img
+          src="./assets/showdown-imgs/header.png"
+          alt=""
+          class="headerImage"
+        />
+        <div id="off">
+          <img
+            src="./assets/showdown-imgs/showdown-off.png"
+            alt=""
+            class="offImage"
+          />
+        </div>
+        <div id="myCanvas"></div>
       </div>
       <div>
         <img src="./assets/wheel.png" alt="Wheel" class="wheel" />
