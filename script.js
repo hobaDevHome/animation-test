@@ -1,52 +1,50 @@
-let spinning = false;
+var spinning = false; // To keep track if the wheel is spinning
 
-async function spinWheel() {
-  if (spinning) return;
+// Function to handle wheel spinning
+function spinWheel() {
+  if (spinning) return; // Prevent multiple spins at the same time
   spinning = true;
 
-  try {
-    const response = await fetch("positions.json");
-    const data = await response.json();
-    const positions = data.positions;
+  var xhr = new XMLHttpRequest();
+  xhr.open("GET", "positions.json", true);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      var data = JSON.parse(xhr.responseText);
+      var positions = data.positions;
 
-    // Get a random position from the array
-    const randomPosition =
-      positions[Math.floor(Math.random() * positions.length)];
+      // Get a random position from the array
+      var randomPosition =
+        positions[Math.floor(Math.random() * positions.length)];
 
-    const wheel = document.getElementById("wheel");
-    if (wheel) {
-      const numberOfSpins = 3;
-      // Calculate the rotation angle based on the random position
-      const angle = getAngleForPosition(randomPosition) + 360 * numberOfSpins; // Adding extra spins
+      var wheel = document.getElementById("wheel");
+      if (wheel) {
+        var numberOfSpins = 5; // Change this number to affect the number of full spins
+        // Calculate the rotation angle based on the random position
+        var angle = getAngleForPosition(randomPosition) + 360 * numberOfSpins; // Adding extra spins
 
-      // Spin the wheel to the calculated angle
-      wheel.style.transform = `rotate(${angle}deg)`;
+        // Spin the wheel to the calculated angle
+        wheel.style.transform = "rotate(" + angle + "deg)";
 
-      // Add an event listener for the transition end to reset the spinning state
-      wheel.addEventListener(
-        "transitionend",
-        () => {
-          spinning = false;
-          wheel.style.transition = "none";
-          wheel.style.transform = `rotate(${getAngleForPosition(
-            randomPosition
-          )}deg)`; // Set to final angle
-          setTimeout(() => {
-            wheel.style.transition = "transform 2s ease-out"; // Reapply transition for next spin
-          }, 0);
-        },
-        { once: true }
-      );
+        // Update the load message
+        updateLoadMessage(randomPosition);
+
+        // Add an event listener for the transition end to reset the spinning state
+        wheel.addEventListener(
+          "transitionend",
+          function () {
+            spinning = false; // Reset spinning state
+          },
+          { once: true }
+        );
+      }
     }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    spinning = false; // Reset spinning state in case of an error
-  }
+  };
+  xhr.send();
 }
 
 // Function to map position to angle
 function getAngleForPosition(position) {
-  const positionAngles = {
+  var positionAngles = {
     1: 0,
     2: 90,
     3: 180,
@@ -54,3 +52,14 @@ function getAngleForPosition(position) {
   };
   return positionAngles[position] || 0;
 }
+
+// Function to update the 'load' element's innerHTML
+function updateLoadMessage(position) {
+  var loadElement = document.getElementById("load");
+  if (loadElement) {
+    loadElement.innerHTML = "Wheel stopped at position " + position;
+  }
+}
+
+// Initial call to update the load message
+updateLoadMessage("Loading...");
