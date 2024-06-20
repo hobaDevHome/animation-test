@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://pixijs.download/release/pixi.min.js"></script>
+
     <audio id="spinSound" src="./dev/assets/wheel.mp3"></audio>
     <audio id="winSound" src="./dev/assets/win.mp3"></audio>
 
@@ -15,6 +15,12 @@
     <div class="container">
       <div class="header" id="myCanvas1">
         <div id="myCanvas"></div>
+      </div>
+      <div id="fallback-container">
+        <img
+          src="./dev/assets/showdown-imgs/fallback.png"
+          alt="Fallback Image"
+        />
       </div>
       <div class="spin-container">
         <img
@@ -35,7 +41,7 @@
           onclick="spinWheel()"
         />
       </div>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/6.2.1/pixi.min.js"></script>
+      <script src="https://pixijs.download/release/pixi.min.js"></script>
       <script type="module">
         const app = new PIXI.Application();
 
