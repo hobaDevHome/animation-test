@@ -9,10 +9,12 @@
       // Create the application helper and add its render target to the page
       const app = new PIXI.Application();
 
+      const cavas = document.getElementById("off");
       await app.init({
         width: 1440,
-        height: 545,
+        height: 500,
         backgroundAlpha: 0,
+        resizeTo: cavas,
       });
       document.getElementById("myCanvas").appendChild(app.view);
 
@@ -183,8 +185,8 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container">
-      <div class="header">
+    <div class="container" id="c">
+      <div class="header" id="header">
         <img
           src="./assets/showdown-imgs/header.png"
           alt=""
@@ -200,9 +202,11 @@
         <div id="myCanvas"></div>
       </div>
       <div>
-        <img src="./assets/wheel.png" alt="Wheel" class="wheel" />
-        <br /><br />
+        <div class="wheel-container">
+          <div class="wheel" id="wheel"></div>
+        </div>
         <button class="spin-button" onclick="spinWheel()">Spin</button>
+        <div id="load">Loading...</div>
       </div>
     </div>
 
