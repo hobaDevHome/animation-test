@@ -83,14 +83,14 @@
 
         // vegas
 
-        let vegas = PIXI.Sprite.from("./dev/assets/showdown-imgs/vegas@2x.png");
+        var vegas = PIXI.Sprite.from("./dev/assets/showdown-imgs/vegas@2x.png");
         vegas.x = 180;
         vegas.y = 35;
         app.stage.addChild(vegas);
 
         // slots
 
-        let slots = PIXI.Sprite.from("./dev/assets/showdown-imgs/slots@2x.png");
+        var slots = PIXI.Sprite.from("./dev/assets/showdown-imgs/slots@2x.png");
         slots.x = 560;
         slots.y = 35;
         app.stage.addChild(slots);
@@ -132,7 +132,7 @@
         ];
 
         function showLetter(assetName, x, y) {
-          let letter = PIXI.Sprite.from(
+          var letter = PIXI.Sprite.from(
             `./dev/assets/showdown-imgs/${assetName}`
           );
           letter.x = x;
@@ -162,7 +162,7 @@
         }
 
         function mustDropShow() {
-          let must = PIXI.Sprite.from(
+          var must = PIXI.Sprite.from(
             "./dev/assets/showdown-imgs/must_drop.png"
           );
           must.anchor.set(0.5);
@@ -173,7 +173,7 @@
           app.stage.addChild(must);
 
           const ticker2 = PIXI.Ticker.shared;
-          let c = 0;
+          var c = 0;
           const onTick2 = () => {
             c += 0.1;
 
@@ -198,12 +198,12 @@
         }
 
         function bolt() {
-          let bolt = PIXI.Sprite.from("./dev/assets/showdown-imgs/bolt@2x.png");
+          var bolt = PIXI.Sprite.from("./dev/assets/showdown-imgs/bolt@2x.png");
 
           bolt.x = 470;
           bolt.y = 0;
           app.stage.addChild(bolt);
-          let flag = 1;
+          var flag = 1;
           app.ticker.add((time) => {
             // Call tick handling for each spinner.
             if (flag == 1) {
