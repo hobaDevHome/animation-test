@@ -10,19 +10,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="header" id="header">
-        <img
-          src="./dev/assets/showdown-imgs/header.png"
-          alt=""
-          class="headerImage"
-        />
-        <div id="off">
-          <img
-            src="./dev/assets/showdown-imgs/showdown-off.png"
-            alt=""
-            class="offImage"
-          />
-        </div>
+      <div class="header" id="myCanvas1">
         <div id="myCanvas"></div>
       </div>
       <div class="spin-container">
@@ -51,6 +39,7 @@
         await app.init({
           width: 1440,
           height: 570,
+
           backgroundAlpha: 0,
         });
         document.getElementById("myCanvas").appendChild(app.view);
@@ -84,15 +73,15 @@
         // vegas
 
         var vegas = PIXI.Sprite.from("./dev/assets/showdown-imgs/vegas@2x.png");
-        vegas.x = 180;
-        vegas.y = 35;
+        vegas.x = 370;
+        vegas.y = 105;
         app.stage.addChild(vegas);
 
         // slots
 
         var slots = PIXI.Sprite.from("./dev/assets/showdown-imgs/slots@2x.png");
-        slots.x = 560;
-        slots.y = 35;
+        slots.x = 750;
+        slots.y = 105;
         app.stage.addChild(slots);
 
         // vagas and solts blink
@@ -121,14 +110,14 @@
         const SPACING = 10;
 
         const positions = [
-          { x: 70, y: 50 },
-          { x: 160, y: 50 },
-          { x: 320, y: 50 },
-          { x: 360, y: 50 },
-          { x: 475, y: 50 },
-          { x: 560, y: 50 },
-          { x: 645, y: 50 },
-          { x: 740, y: 50 },
+          { x: 265, y: 120 },
+          { x: 360, y: 120 },
+          { x: 510, y: 120 },
+          { x: 555, y: 120 },
+          { x: 670, y: 120 },
+          { x: 750, y: 120 },
+          { x: 835, y: 120 },
+          { x: 930, y: 120 },
         ];
 
         function showLetter(assetName, x, y) {
@@ -166,8 +155,8 @@
             "./dev/assets/showdown-imgs/must_drop.png"
           );
           must.anchor.set(0.5);
-          must.x = 520;
-          must.y = 370;
+          must.x = app.screen.width / 2;
+          must.y = 470;
           must.width = 700;
           must.height = 200;
           app.stage.addChild(must);
@@ -200,8 +189,8 @@
         function bolt() {
           var bolt = PIXI.Sprite.from("./dev/assets/showdown-imgs/bolt@2x.png");
 
-          bolt.x = 470;
-          bolt.y = 0;
+          bolt.x = 665;
+          bolt.y = 65;
           app.stage.addChild(bolt);
           var flag = 1;
           app.ticker.add((time) => {
