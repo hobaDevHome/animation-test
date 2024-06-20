@@ -1,10 +1,36 @@
 var spinning = false;
+console.log("Script loaded");
 
-// Get references to the audio elements
 const spinSound = document.getElementById("spinSound");
 const winSound = document.getElementById("winSound");
 
-// Function to play spin sound effect
+function isIE() {
+  const ua = window.navigator.userAgent;
+  const msie = ua.indexOf("MSIE ") > -1;
+  const trident = ua.indexOf("Trident/") > -1;
+  console.log("is IE", msie);
+  return msie || trident;
+}
+
+function handleBrowserDetection() {
+  const pixiContainer = document.getElementById("myCanvas1");
+  const pixiCanvas = document.getElementById("myCanvas");
+  const fallbackContainer = document.getElementById("fallback-container");
+
+  if (isIE()) {
+    if (pixiContainer) pixiContainer.style.display = "none";
+    if (pixiCanvas) pixiCanvas.style.display = "none";
+
+    if (fallbackContainer) fallbackContainer.style.display = "block";
+  } else {
+    if (pixiContainer) pixiContainer.style.display = "flex";
+    if (pixiCanvas) pixiCanvas.style.display = "flex";
+    if (fallbackContainer) fallbackContainer.style.display = "none";
+  }
+}
+
+document.addEventListener("DOMContentLoaded", handleBrowserDetection);
+
 function playSpinSound() {
   if (spinSound instanceof HTMLAudioElement) {
     spinSound.currentTime = 0;
@@ -12,7 +38,6 @@ function playSpinSound() {
   }
 }
 
-// Function to play win sound effect
 function playWinSound() {
   if (winSound instanceof HTMLAudioElement) {
     winSound.currentTime = 0;
@@ -20,7 +45,6 @@ function playWinSound() {
   }
 }
 
-// Function to handle wheel spinning
 function spinWheel() {
   if (spinning) return;
   spinning = true;
@@ -39,23 +63,21 @@ function spinWheel() {
 
       var wheel = document.getElementById("wheel");
       if (wheel) {
-        var numberOfSpins = 5; // Change this number to affect the number of full spins
+        var numberOfSpins = 5;
         // Calculate the rotation angle based on the random position
         var angle = getAngleForPosition(randomPosition) + 360 * numberOfSpins; // Adding extra spins
 
         // Spin the wheel to the calculated angle
-        wheel.style.transition = "transform 9s ease-out"; // Adjust duration as needed
+        wheel.style.transition = "transform 9s ease-out";
         wheel.style.transform = "rotate(" + angle + "deg)";
         setTimeout(function () {
           playWinSound();
-          updateLoadMessage(randomPosition);
         }, 9000);
 
-        // Add an event listener for the transition end to reset the spinning state
         wheel.addEventListener(
           "transitionend",
           function () {
-            spinning = false; // Reset spinning state
+            spinning = false;
           },
           { once: true }
         );
@@ -75,14 +97,3 @@ function getAngleForPosition(position) {
   };
   return positionAngles[position] || 0;
 }
-
-// Function to update the 'load' element's innerHTML
-function updateLoadMessage(position) {
-  var loadElement = document.getElementById("load");
-  if (loadElement) {
-    loadElement.innerHTML = "Wheel stopped at position " + position;
-  }
-}
-
-// Initial call to update the load message
-updateLoadMessage("Loading...");

@@ -34,6 +34,7 @@ body {
   cursor: pointer;
   width: 250px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .spin-marker {
@@ -44,7 +45,7 @@ body {
 
 .header {
   min-width: 1060px;
-  height: 570px;
+  height: 500px;
   background-image: url("./dev/assets/showdown-imgs/header.png");
   background-size: cover;
   background-position: center;
@@ -52,6 +53,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 20px;
 }
 
 #myCanvas {
@@ -65,4 +67,10 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+#myCanvas1 {
+  display: none;
+}
+#fallback-container {
+  margin-top: 20px;
 }
