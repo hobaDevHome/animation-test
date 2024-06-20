@@ -1,8 +1,7 @@
-let spinning = false; // To keep track if the wheel is spinning
+let spinning = false;
 
-// Function to handle wheel spinning
 async function spinWheel() {
-  if (spinning) return; // Prevent multiple spins at the same time
+  if (spinning) return;
   spinning = true;
 
   try {
@@ -16,22 +15,19 @@ async function spinWheel() {
 
     const wheel = document.getElementById("wheel");
     if (wheel) {
-      const numberOfSpins = 3; // Change this number to affect the number of full spins
+      const numberOfSpins = 3;
       // Calculate the rotation angle based on the random position
       const angle = getAngleForPosition(randomPosition) + 360 * numberOfSpins; // Adding extra spins
 
       // Spin the wheel to the calculated angle
       wheel.style.transform = `rotate(${angle}deg)`;
 
-      // Update the load message
-      updateLoadMessage(randomPosition);
-
       // Add an event listener for the transition end to reset the spinning state
       wheel.addEventListener(
         "transitionend",
         () => {
-          spinning = false; // Reset spinning state
-          wheel.style.transition = "none"; // Remove transition to reset rotation
+          spinning = false;
+          wheel.style.transition = "none";
           wheel.style.transform = `rotate(${getAngleForPosition(
             randomPosition
           )}deg)`; // Set to final angle
@@ -58,14 +54,3 @@ function getAngleForPosition(position) {
   };
   return positionAngles[position] || 0;
 }
-
-// Function to update the 'load' element's innerHTML
-function updateLoadMessage(position) {
-  const loadElement = document.getElementById("load");
-  if (loadElement) {
-    loadElement.innerHTML = `Wheel stopped at position ${position}`;
-  }
-}
-
-// Initial call to update the load message
-updateLoadMessage("Loading...");
