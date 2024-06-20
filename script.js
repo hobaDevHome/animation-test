@@ -1,9 +1,30 @@
-var spinning = false; // To keep track if the wheel is spinning
+var spinning = false;
+
+// Get references to the audio elements
+const spinSound = document.getElementById("spinSound");
+const winSound = document.getElementById("winSound");
+
+// Function to play spin sound effect
+function playSpinSound() {
+  if (spinSound instanceof HTMLAudioElement) {
+    spinSound.currentTime = 0;
+    spinSound.play();
+  }
+}
+
+// Function to play win sound effect
+function playWinSound() {
+  if (winSound instanceof HTMLAudioElement) {
+    winSound.currentTime = 0;
+    winSound.play();
+  }
+}
 
 // Function to handle wheel spinning
 function spinWheel() {
-  if (spinning) return; // Prevent multiple spins at the same time
+  if (spinning) return;
   spinning = true;
+  playSpinSound();
 
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "positions.json", true);
@@ -23,10 +44,12 @@ function spinWheel() {
         var angle = getAngleForPosition(randomPosition) + 360 * numberOfSpins; // Adding extra spins
 
         // Spin the wheel to the calculated angle
+        wheel.style.transition = "transform 9s ease-out"; // Adjust duration as needed
         wheel.style.transform = "rotate(" + angle + "deg)";
-
-        // Update the load message
-        updateLoadMessage(randomPosition);
+        setTimeout(function () {
+          playWinSound();
+          updateLoadMessage(randomPosition);
+        }, 9000);
 
         // Add an event listener for the transition end to reset the spinning state
         wheel.addEventListener(
