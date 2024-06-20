@@ -19,19 +19,19 @@
       document.getElementById("myCanvas").appendChild(app.view);
 
       await PIXI.Assets.load([
-        "./assets/showdown-imgs/showdown-off.png",
-        "./assets/showdown-imgs/vegas@2x.png",
-        "./assets/showdown-imgs/slots@2x.png",
-        "./assets/showdown-imgs/s@2x.png",
-        "./assets/showdown-imgs/h@2x.png",
-        "./assets/showdown-imgs/o-1@2x.png",
-        "./assets/showdown-imgs/w-1@2x.png",
-        "./assets/showdown-imgs/d@2x.png",
-        "./assets/showdown-imgs/o-2@2x.png",
-        "./assets/showdown-imgs/w-2@2x.png",
-        "./assets/showdown-imgs/n@2x.png",
-        "./assets/showdown-imgs/must_drop.png",
-        "./assets/showdown-imgs/bolt@2x.png",
+        "./dev/assets/showdown-imgs/showdown-off.png",
+        "./dev/assets/showdown-imgs/vegas@2x.png",
+        "./dev/assets/showdown-imgs/slots@2x.png",
+        "./dev/assets/showdown-imgs/s@2x.png",
+        "./dev/assets/showdown-imgs/h@2x.png",
+        "./dev/assets/showdown-imgs/o-1@2x.png",
+        "./dev/assets/showdown-imgs/w-1@2x.png",
+        "./dev/assets/showdown-imgs/d@2x.png",
+        "./dev/assets/showdown-imgs/o-2@2x.png",
+        "./dev/assets/showdown-imgs/w-2@2x.png",
+        "./dev/assets/showdown-imgs/n@2x.png",
+        "./dev/assets/showdown-imgs/must_drop.png",
+        "./dev/assets/showdown-imgs/bolt@2x.png",
       ]);
 
       const lettersNames = [
@@ -47,14 +47,14 @@
 
       // vegas
 
-      let vegas = PIXI.Sprite.from("./assets/showdown-imgs/vegas@2x.png");
+      let vegas = PIXI.Sprite.from("./dev/assets/showdown-imgs/vegas@2x.png");
       vegas.x = 370;
       vegas.y = 95;
       app.stage.addChild(vegas);
 
       // slots
 
-      let slots = PIXI.Sprite.from("./assets/showdown-imgs/slots@2x.png");
+      let slots = PIXI.Sprite.from("./dev/assets/showdown-imgs/slots@2x.png");
       slots.x = 750;
       slots.y = 95;
       app.stage.addChild(slots);
@@ -188,13 +188,13 @@
     <div class="container" id="c">
       <div class="header" id="header">
         <img
-          src="./assets/showdown-imgs/header.png"
+          src="./dev/assets/showdown-imgs/header.png"
           alt=""
           class="headerImage"
         />
         <div id="off">
           <img
-            src="./assets/showdown-imgs/showdown-off.png"
+            src="./dev/assets/showdown-imgs/showdown-off.png"
             alt=""
             class="offImage"
           />
