@@ -9,17 +9,14 @@
       // Create the application helper and add its render target to the page
       const app = new PIXI.Application();
 
-      const cavas = document.getElementById("off");
       await app.init({
         width: 1440,
-        height: 500,
+        height: 570,
         backgroundAlpha: 0,
-        resizeTo: cavas,
       });
       document.getElementById("myCanvas").appendChild(app.view);
 
       await PIXI.Assets.load([
-        "./dev/assets/showdown-imgs/showdown-off.png",
         "./dev/assets/showdown-imgs/vegas@2x.png",
         "./dev/assets/showdown-imgs/slots@2x.png",
         "./dev/assets/showdown-imgs/s@2x.png",
@@ -48,15 +45,15 @@
       // vegas
 
       let vegas = PIXI.Sprite.from("./dev/assets/showdown-imgs/vegas@2x.png");
-      vegas.x = 370;
-      vegas.y = 95;
+      vegas.x = 180;
+      vegas.y = 35;
       app.stage.addChild(vegas);
 
       // slots
 
       let slots = PIXI.Sprite.from("./dev/assets/showdown-imgs/slots@2x.png");
-      slots.x = 750;
-      slots.y = 95;
+      slots.x = 560;
+      slots.y = 35;
       app.stage.addChild(slots);
 
       // vagas and solts blink
@@ -83,21 +80,22 @@
 
       // letters
       const SPACING = 10;
-      const STARTINGX = 265;
-      const STARTINGY = 110;
+
       const positions = [
-        { x: 265, y: 110 },
-        { x: 360, y: 110 },
-        { x: 510, y: 110 },
-        { x: 555, y: 110 },
-        { x: 670, y: 110 },
-        { x: 750, y: 110 },
-        { x: 835, y: 110 },
-        { x: 930, y: 110 },
+        { x: 70, y: 50 },
+        { x: 160, y: 50 },
+        { x: 320, y: 50 },
+        { x: 360, y: 50 },
+        { x: 475, y: 50 },
+        { x: 560, y: 50 },
+        { x: 645, y: 50 },
+        { x: 740, y: 50 },
       ];
 
       function showLetter(assetName, x, y) {
-        let letter = PIXI.Sprite.from(`./assets/showdown-imgs/${assetName}`);
+        let letter = PIXI.Sprite.from(
+          `./dev/assets/showdown-imgs/${assetName}`
+        );
         letter.x = x;
         letter.y = y;
 
@@ -125,10 +123,12 @@
       }
 
       function mustDropShow() {
-        let must = PIXI.Sprite.from("./assets/showdown-imgs/must_drop.png");
+        let must = PIXI.Sprite.from("./dev/assets/showdown-imgs/must_drop.png");
         must.anchor.set(0.5);
-        must.x = app.screen.width / 2;
-        must.y = 470;
+        must.x = 520;
+        must.y = 370;
+        must.width = 700;
+        must.height = 200;
         app.stage.addChild(must);
 
         const ticker2 = PIXI.Ticker.shared;
@@ -157,10 +157,10 @@
       }
 
       function bolt() {
-        let bolt = PIXI.Sprite.from("./assets/showdown-imgs/bolt@2x.png");
+        let bolt = PIXI.Sprite.from("./dev/assets/showdown-imgs/bolt@2x.png");
 
-        bolt.x = 660;
-        bolt.y = 55;
+        bolt.x = 470;
+        bolt.y = 0;
         app.stage.addChild(bolt);
         let flag = 1;
         app.ticker.add((time) => {
@@ -185,7 +185,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="container" id="c">
+    <div class="container">
       <div class="header" id="header">
         <img
           src="./dev/assets/showdown-imgs/header.png"
@@ -201,12 +201,24 @@
         </div>
         <div id="myCanvas"></div>
       </div>
-      <div>
+      <div class="spin-container">
+        <img
+          src="./dev/assets/marker.png"
+          alt="spin marker"
+          class="spin-marker"
+          onclick="spinWheel()"
+        />
+
         <div class="wheel-container">
-          <div class="wheel" id="wheel"></div>
+          <img src="./dev/assets/wheel.png" alt="" class="wheel" id="wheel" />
         </div>
-        <button class="spin-button" onclick="spinWheel()">Spin</button>
-        <div id="load">Loading...</div>
+
+        <img
+          src="./dev/assets/btn-spin.png"
+          alt="spin the wheel"
+          class="spin-button"
+          onclick="spinWheel()"
+        />
       </div>
     </div>
 
